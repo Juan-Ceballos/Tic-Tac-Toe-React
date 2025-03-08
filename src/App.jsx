@@ -29,20 +29,30 @@ main component for app, the board
 */
 export default function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null))
+  const [xIsNext, setXIsNext] = useState(true)
 
   // creates board component function that is passed to child square components
   // Square components has prop for a square value and a function
   // when function called in square it causes this change in board state
   function handleClick(i) {
     // since array is reference you can copy using slice array method, sets to nextSquares
+    // keeps previous state available for future use
     // changes to "X" on index 0 of nextSquares
     // uses useState setSquares which updates squares, replaced 0 with index
     const nextSquares = squares.slice()
-    nextSquares[i] = "X"
     setSquares(nextSquares)
+    if (xIsNext) {
+      nextSquares[i] = "X"
+    } else {
+      nextSquares[i] = "O"
+    }
+    setXIsNext(!xIsNext)
   }
 
+  
+
   // pass it a function rather than a call so it does not execute right away but on click
+  // use of state and value
   return (
     <>
       <div className='board-row'>
