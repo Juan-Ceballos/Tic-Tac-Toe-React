@@ -36,7 +36,7 @@ export default function Board() {
   function handleClick(i) {
     // since array is reference you can copy using slice array method, sets to nextSquares
     // changes to "X" on index 0 of nextSquares
-    // uses useState setSquares which updates squares
+    // uses useState setSquares which updates squares, replaced 0 with index
     const nextSquares = squares.slice()
     nextSquares[i] = "X"
     setSquares(nextSquares)
