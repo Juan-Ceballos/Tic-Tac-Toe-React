@@ -39,8 +39,10 @@ export default function Board() {
     // keeps previous state available for future use
     // changes to "X" on index 0 of nextSquares
     // uses useState setSquares which updates squares, replaced 0 with index
+    if (squares[i]) {return}
     const nextSquares = squares.slice()
     setSquares(nextSquares)
+    
     if (xIsNext) {
       nextSquares[i] = "X"
     } else {
