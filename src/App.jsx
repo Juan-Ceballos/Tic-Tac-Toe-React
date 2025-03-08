@@ -2,32 +2,56 @@ import { useState } from 'react'
 import './App.css'
 import PropTypes from 'prop-types'
 
-function Square({ value }) {
-  return <button className='square'>{value}</button>
+/*
+Square Component, returns a button class name 'square'
+*/
+function Square() {
+  const [value, setValue] = useState(null)
+
+  function handleClick() {
+    setValue('X')
+  }
+
+  return( 
+    <button 
+      className='square'
+      onClick={handleClick}
+    >
+      {value}
+    </button>
+  )
 }
 
-Square.propTypes = {
-  value: PropTypes.string.isRequired
-}
-
+/*
+main component for app, the board
+*/
 export default function Board() {
   return (
     <>
       <div className='board-row'>
-        <Square value="1"/>
-        <Square value="2"/>
-        <Square value="3"/>
+        <Square />
+        <Square />
+        <Square />
       </div>
       <div className='board-row'>
-        <Square value="4"/>
-        <Square value="5"/>
-        <Square value="6"/>
+        <Square />
+        <Square />
+        <Square />
       </div>
       <div className='board-row'>
-        <Square value="7"/>
-        <Square value="8"/>
-        <Square value="9"/>
+        <Square />
+        <Square />
+        <Square />
       </div>
     </>
   )
 }
+
+
+/*
+Gave Square a prop called value, that is a string parameter
+for identifying square on board
+*/
+// Square.propTypes = {
+//   value: PropTypes.string.isRequired
+// }
