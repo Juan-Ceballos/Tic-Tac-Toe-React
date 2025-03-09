@@ -2,6 +2,8 @@
 
 A simple, interactive Tic-Tac-Toe game built with React.
 
+[Game-Image](src/assets/Game-Preview.png)
+
 ## Description
 
 This project is a web-based implementation of the classic Tic-Tac-Toe game. Players take turns marking X and O on a 3x3 grid. The first player to get three of their marks in a row (horizontally, vertically, or diagonally) wins the game.
