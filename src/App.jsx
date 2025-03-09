@@ -21,15 +21,57 @@ Gave Square a prop called value, that is a string parameter
 for identifying square on board
 */
 Square.propTypes = {
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  onSquareClick: PropTypes.func.isRequired
 }
 
 /*
 main component for app, the board
 */
-export default function Board() {
-  const [squares, setSquares] = useState(Array(9).fill(null))
-  const [xIsNext, setXIsNext] = useState(true)
+
+// new main function to keep track of history and go back turns
+export default function Game() {
+  const [history, setHistory] = useState([Array(9).fill(null)])
+  const [currentMove, setCurrentMove] = useState(0)
+  const xIsNext = currentMove % 2 === 0
+  const currentSquares = history[currentMove]
+
+  // the spread operator has the last array, next squares added 
+  function handlePlay(nextSquares) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares]
+    setHistory(nextHistory)
+    setCurrentMove(nextHistory.length - 1)
+  }
+
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove)
+  }
+
+  const moves = history.map((squares, move) => {
+    let description
+    description = move > 0 ? 'Go to move #' + move : 'Go to game start'
+    return (
+      <li key={move}>
+        <button onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    )
+  })
+
+  return (
+    <div className='game'>
+      <div className='game-board'>
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+      </div>
+      <div className='game-info'>
+        <ol>{moves}</ol>
+      </div>
+    </div>
+  )
+}
+
+function Board({xIsNext, squares, onPlay}) {
+  //const [squares, setSquares] = useState(Array(9).fill(null))
+  //const [xIsNext, setXIsNext] = useState(true) REFACTORED
 
   // creates board component function that is passed to child square components
   // Square components has prop for a square value and a function
@@ -39,16 +81,14 @@ export default function Board() {
     // keeps previous state available for future use
     // changes to "X" on index 0 of nextSquares
     // uses useState setSquares which updates squares, replaced 0 with index
-    if (squares[i]) {return}
-    const nextSquares = squares.slice()
-    setSquares(nextSquares)
+    if (squares[i] || calculateWinner(squares)) {return}
     
-    if (xIsNext || calculateWinner(squares)) {
-      nextSquares[i] = "X"
-    } else {
-      nextSquares[i] = "O"
-    }
-    setXIsNext(!xIsNext)
+    const nextSquares = squares.slice()
+    //setSquares(nextSquares)
+    
+    nextSquares[i] = xIsNext ? "X" : "O"
+    //setXIsNext(!xIsNext)
+    onPlay(nextSquares)
   }
 
   const winner = calculateWinner(squares)
