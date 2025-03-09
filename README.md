@@ -2,7 +2,7 @@
 
 A simple, interactive Tic-Tac-Toe game built with React.
 
-[Game-Image](src/assets/Game-Preview.png)
+![Game-Image](src/assets/Game-Preview.png)
 
 ## Description
 
