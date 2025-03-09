@@ -54,10 +54,6 @@ This project is a web-based implementation of the classic Tic-Tac-Toe game. Play
 5. If all squares are filled and no player has three in a row, the game is a draw
 6. Click the reset button to start a new game
 
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
 ## Author
 
 Juan Ceballos
